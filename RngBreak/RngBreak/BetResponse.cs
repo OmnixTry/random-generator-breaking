@@ -8,10 +8,18 @@ namespace RngBreak
 {
 	class BetResponse
 	{
-		string Message { get; set; }
+		public string Message { get; set; }
 
-		Account Account { get; set; }
+		public Account Account { get; set; }
 
-		int RealNumber { get; set; }
+		public int RealNumber { get; set; }
+
+		public void Print()
+		{
+			Console.WriteLine("---------");
+			Console.WriteLine($"Message: {Message}; RealNumber: {RealNumber};");
+			Account.Print();
+			Console.WriteLine("---------");
+		}
 	}
 }

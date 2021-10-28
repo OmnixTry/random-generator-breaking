@@ -10,20 +10,33 @@ using System.Threading.Tasks;
 namespace RngBreak
 {
 	class CasinoCaller
-	{		
-		public async Task<Account> CreateAccount(int accId)
+	{
+		private const string urlBase = "http://95.217.177.249/casino/";
+		public async Task<Account> CreateAccount(string accId)
 		{
 			using (HttpClient http = new HttpClient())
 			{
-				var responseMessage = await http.GetAsync($"http://95.217.177.249/casino/createacc?/createacc?id={accId}");
+				var responseMessage = await http.GetAsync($"{urlBase}createacc?id={accId}");
 				var responseText = await responseMessage.Content.ReadAsStringAsync();
+				Console.WriteLine(responseText);
 				var account = JsonConvert.DeserializeObject<Account>(responseText);
 
 				return account;
 			}
 		}
 
+		public async Task<BetResponse> MakeABet(int sumOfMoney, int theNumberYouBetOn, string mode, string accId)
+		{
+			using (HttpClient http = new HttpClient())
+			{
+				var responseMessage = await http.GetAsync($"{urlBase}play{mode}?id={accId}&bet={sumOfMoney}&number={theNumberYouBetOn}");
+				var responseText = await responseMessage.Content.ReadAsStringAsync();
+				Console.WriteLine(responseText);
+				var betResponse = JsonConvert.DeserializeObject<BetResponse>(responseText);
 
+				return betResponse;
+			}
+		}
 
 	}	
 }

@@ -8,10 +8,17 @@ namespace RngBreak
 {
 	class Account
 	{
-		string Id { get; set; }
+		public string Id { get; set; }
 
-		int Money { get; set; }
+		public int Money { get; set; }
 
-		DateTime DeletionTime { get; set; }
+		public DateTime DeletionTime { get; set; }
+
+		public void Print()
+		{
+			Console.WriteLine("=============");
+			Console.WriteLine($"Id: {Id}; Money: {Money}; Deletion Time: {DeletionTime}");
+			Console.WriteLine("=============\n");
+		}
 	}
 }

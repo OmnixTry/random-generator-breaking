@@ -18,14 +18,14 @@ namespace RngBreak
 			{
 				var responseMessage = await http.GetAsync($"{urlBase}createacc?id={accId}");
 				var responseText = await responseMessage.Content.ReadAsStringAsync();
-				Console.WriteLine(responseText);
+				//Console.WriteLine(responseText);
 				var account = JsonConvert.DeserializeObject<Account>(responseText);
 
 				return account;
 			}
 		}
 
-		public async Task<BetResponse> MakeABet(int sumOfMoney, int theNumberYouBetOn, string mode, string accId)
+		public async Task<BetResponse> MakeABet(int sumOfMoney, long theNumberYouBetOn, string mode, string accId)
 		{
 			using (HttpClient http = new HttpClient())
 			{

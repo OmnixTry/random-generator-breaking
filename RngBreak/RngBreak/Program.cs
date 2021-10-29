@@ -7,7 +7,7 @@ namespace RngBreak
 	{
 		static async Task Main(string[] args)
 		{
-			const string accId = "552264";
+			const string accId = "552270";
 			CasinoCaller caller = new CasinoCaller();
 			var acc = await caller.CreateAccount(accId);
 			var breaker = new LCGBreaker(caller);
@@ -54,5 +54,5 @@ namespace RngBreak
 // X2 = (aX1 + c) + i * M
 // X3 = (aX2 + c) + j * M
 // 
-// X2 - X3 + i*M + j*M = a(X1-X2)
+// X2 - X3 - i*M + j*M = a(X1-X2)
 // X2 + X3 - (i + j)*M = a(x1+x2) + 2c

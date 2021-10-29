@@ -50,12 +50,33 @@ namespace RngBreak
 			}
 			*/
 			// X2 + X3 - (i + j)*M = a(x1+x2) + 2c
+			// c = (X2 + X3 - (i + j)*M - a(x1+x2)) / 2
 			c = (randoms[2] + randoms[1] - M * multiplyM - a * (randoms[0] + randoms[1])) / 2;
-			long Next = (a * randoms[2] + c) % M;
+			if(c < 0)
+			{
+				while(c < int.MinValue)
+				{
+					c += M;
+				}
+			}
+			if (c > 0)
+			{
+				while (c > int.MaxValue)
+				{
+					c -= M;
+				}
+			}
 
-			var result = await caller.MakeABet(1, Next, GameModes.LinearCongruential, ackountId);
-			Console.WriteLine(Next);
-			result.Print();
+			long Next = (int)((a * randoms[2] + c) % M);
+			BetResponse result = null;
+			do
+			{
+				result = await caller.MakeABet(result == null ? 1 : result.Account.Money , Next, GameModes.LinearCongruential, ackountId);
+				Console.WriteLine(Next);
+				result.Print();
+				Console.WriteLine($"A: {a}; C: {c}");
+				Next = (int)((a * result.RealNumber + c) % M);
+			} while (result.Account.Money < 1000000);			
 		}
 	}
 }

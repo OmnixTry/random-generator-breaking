@@ -28,11 +28,13 @@ namespace RngBreak
 			// a = (X2 % M - X3 % M) / (X1 - X2)\
 			int multiplyM = 0;
 			long a = 0;
-			for(multiplyM = 0; multiplyM < int.MaxValue; multiplyM++)
+			for(multiplyM = -1000000; multiplyM < int.MaxValue; multiplyM++)
 			{
 				double doubleA = ((double)randoms[1] - (double)randoms[2] - multiplyM * M) / (randoms[0] - randoms[1]);
 				if(((int)doubleA) == doubleA)
 				{
+					Console.WriteLine(((double)randoms[1] - (double)randoms[2] - multiplyM * M));
+					Console.WriteLine((randoms[0] - randoms[1]));
 					a = (int)doubleA;
 					break;
 				}

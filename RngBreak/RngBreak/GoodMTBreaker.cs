@@ -10,30 +10,32 @@ namespace RngBreak
 	{
 		public GoodMTBreaker(CasinoCaller caller) : base(caller) { }
 
-		public static long unBitshiftRightXor(long receivedValue, int shift)
+		public long unBitshiftRightXor(long receivedValue, int numOfShifts)
 		{
 			long i = 0;
 			long result = 0;
-			while (i * shift < 32)
+			while (i * numOfShifts < 32)
 			{
-				long partMask = (int)((uint)(-1 << (32 - shift)) >> (int)(shift * i));
+				long minusOneShifted = -1 << (32 - numOfShifts);
+				long partMask = UnginedRightShiftInt(minusOneShifted, (int)(numOfShifts * i));
 				long part = receivedValue & partMask;
-				receivedValue ^= (long)((ulong)part >> shift);
+				receivedValue ^= UnginedRightShift(part, numOfShifts);
 				result |= part;
 				i++;
 			}
 			return result;
 		}
 
-		public static long unBitshiftLeftXor(long receivedValue, int shift, long mask)
+		public long unBitshiftLeftXor(long receivedValue, int numOfShifts, long AndMask)
 		{
 			long i = 0;
 			long result = 0;
-			while (i * shift < 32)
+			while (i * numOfShifts < 32)
 			{
-				long partMask = ((int)(unchecked((uint)-1) >> (32 - shift))) << (int)(shift * i);
+				long minusOneShifted = (int)(unchecked((uint)-1) >> (32 - numOfShifts));
+				long partMask =  minusOneShifted << (int)(numOfShifts * i);
 				long part = receivedValue & partMask;
-				receivedValue ^= (part << shift) & mask;
+				receivedValue ^= (part << numOfShifts) & AndMask;
 				result |= part;
 				i++;
 			}
@@ -71,9 +73,14 @@ namespace RngBreak
 			result.Print();
 		}
 
-		private int UnginedRightShift()
+		private long UnginedRightShift(long valueToShift, int numOfShifts)
 		{
+			return (long)((ulong)valueToShift >> numOfShifts);
+		}
 
+		private int UnginedRightShiftInt(long valueToShift, int numOfShifts)
+		{
+			return (int)((uint)valueToShift >> numOfShifts);
 		}
 	}
 }

@@ -17,14 +17,16 @@ namespace RngBreak
 			var goodMtBreaker = new GoodMTBreaker(caller);
 			//await breaker.HackLcg(accId);
 			Console.WriteLine(DateTimeOffset.UtcNow);
-			
-			
-			
+
+
+
 			//await lcgBreaker.HackLcg(accId);
 
 			//await mtBreaker.HackMT(accId, offset);
 
-			
+			await goodMtBreaker.Hacc(accId);
+
+
 			//var breakerMt = new GoodMTBreaker(caller);
 			//await breakerMt.Hacc(accId);
 

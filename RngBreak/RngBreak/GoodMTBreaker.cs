@@ -49,9 +49,9 @@ namespace RngBreak
 			ulong[] state = new ulong[624];
 			for (int i = 0; i < 624; i++)
 			{
-				//result = await caller.MakeABetUnsigned(1, 1, GameModes.BetterMt, accId);
-				//long value = result.RealNumber;
-				long value = (long)mersenneTwister.genrand_int32();
+				result = await caller.MakeABetUnsigned(1, 1, GameModes.BetterMt, accId);
+				long value = result.RealNumber;
+				//long value = (long)mersenneTwister.genrand_int32();
 				value = unBitshiftRightXor(value, 18);
 				value = unBitshiftLeftXor(value, 15, 0xefc60000);
 				value = unBitshiftLeftXor(value, 7, 0x9d2c5680);
@@ -60,11 +60,12 @@ namespace RngBreak
 			}
 
 			
+			/*
 			for (int i = 0; i < 624; i++)
 			{
 				Console.WriteLine($"Mine: {state[i]}; Correct: {mersenneTwister.mt[i]}");
 			}
-			
+			*/
 
 
 			mersenneTwister.mt = state;

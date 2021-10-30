@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MersenneTwister;
 
 namespace RngBreak
 {
@@ -7,18 +8,34 @@ namespace RngBreak
 	{
 		static async Task Main(string[] args)
 		{
-			const string accId = "552270";
+			var rand = new Random();
+			string accId = rand.Next().ToString();
 			CasinoCaller caller = new CasinoCaller();
+			var offset = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 			var acc = await caller.CreateAccount(accId);
 			var breaker = new LCGBreaker(caller);
-			await breaker.Hack(accId);
+			//await breaker.HackLcg(accId);
+			Console.WriteLine(DateTimeOffset.UtcNow);
+			await breaker.HackMT(accId, offset);
+
+			Console.WriteLine("\n\n\n\n================");
+			var twister = new MersenneTwister();
+			twister.init_genrand(1635594486);
+			Console.WriteLine("Next: " + twister.genrand_int32());
+			Console.WriteLine("Next: " + twister.genrand_int32());
+			Console.WriteLine("Next: " + twister.genrand_int32());
+			Console.WriteLine("Next: " + twister.genrand_int32());
+			Console.WriteLine("Next: " + twister.genrand_int32());
+
+
+
 			//var response = await caller.MakeABet(1, 1, GameModes.LinearCongruential, accId);
 			//response.Print();
-			
+
 
 			//Console.WriteLine(DateTime.Now);
 			//acc.Print();
-			
+
 			//var response = await caller.MakeABet(1, 1, GameModes.LinearCongruential, accId);
 			//response.Print();
 		}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MersenneTwister;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,8 @@ namespace RngBreak
 		{
 			this.caller = caller;
 		}
-		public async Task Hack(string ackountId)
+		/*
+		public async Task HackLcg(string ackountId)
 		{
 			List<int> randoms = new List<int>();
 			var account = await caller.CreateAccount(ackountId);
@@ -42,15 +44,7 @@ namespace RngBreak
 			
 			// c = X2 % M - aX1
 			long c = 0; //= randoms[1] - a * randoms[0] + M* multiplyM;
-			/*
-			for (c = 0; c < long.MaxValue; c++)
-			{
-				if(randoms[1] == randoms[0]* a + c)
-				{
-					break;
-				}
-			}
-			*/
+
 			// X2 + X3 - (i + j)*M = a(x1+x2) + 2c
 			// c = (X2 + X3 - (i + j)*M - a(x1+x2)) / 2
 			c = (randoms[2] + randoms[1] - M * multiplyM - a * (randoms[0] + randoms[1])) / 2;
@@ -79,6 +73,79 @@ namespace RngBreak
 				Console.WriteLine($"A: {a}; C: {c}");
 				Next = (int)((a * result.RealNumber + c) % M);
 			} while (result.Account.Money < 1000000);			
+		}
+		*/
+		public async Task HackMT(string ackountId, long offset)
+		{
+			var result = await caller.MakeABet(1, 1, GameModes.MerseneTwister, ackountId);
+
+			MersenneTwister twister = new MersenneTwister(); 
+			for (int i = -50; i < 50; i++)
+			{
+				twister = new MersenneTwister();
+				twister.init_genrand((uint)(offset + i));
+				var randNo = twister.genrand_int32();
+				if((uint)randNo == result.RealNumber)
+				{
+					break;
+				}
+			}
+
+			result = await caller.MakeABet(1, (long)twister.genrand_int32(), GameModes.MerseneTwister, ackountId); 
+			/*
+			List<MersenneTwister> twisters = new List<MersenneTwister>();
+			Console.WriteLine(offset);
+			for (int i = -50; i < 50; i++)
+			{
+				var twister = new MersenneTwister();
+				Console.WriteLine((uint)(offset + i));
+				twister.init_genrand((uint)(offset + i));
+				twisters.Add(twister);
+			}
+
+			var result = await caller.MakeABet(1, 1, GameModes.MerseneTwister, ackountId);
+			Console.WriteLine("RealNUmber: " + result.RealNumber);
+			MersenneTwister correct = twisters[0];
+			foreach (var item in twisters)
+			{
+				var number = item.genrand_int32();
+				Console.WriteLine("Random: " + number);
+				if ((uint)number == result.RealNumber)
+				{
+					correct = item;
+					break;
+				}
+			}
+			result = await caller.MakeABet(1, (long)correct.genrand_int32(), GameModes.MerseneTwister, ackountId);
+			*/
+
+			/*
+			List<Random> twisters = new List<Random>();
+			var longOffset = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+			ulong offset = (ulong)longOffset - 7;
+
+			for (int i = 0; i < 15; i++)
+			{
+				var twister = Randoms.Create((int)offset + i);
+				twisters.Add(twister);
+			}
+
+			var result = await caller.MakeABet(1, 1, GameModes.MerseneTwister, ackountId);
+			Console.WriteLine("RealNUmber: " + (uint)result.RealNumber);
+			var correct = twisters[0];
+			foreach (var item in twisters)
+			{
+				var number = item.Next();
+				Console.WriteLine("Random: " + number);
+				if (number == (uint)result.RealNumber)
+				{
+					correct = item;
+					break;
+				}
+			}
+
+			result = await caller.MakeABet(1, correct.Next(), GameModes.MerseneTwister, ackountId);
+			*/
 		}
 	}
 }

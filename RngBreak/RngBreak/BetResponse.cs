@@ -12,7 +12,7 @@ namespace RngBreak
 
 		public Account Account { get; set; }
 
-		public int RealNumber { get; set; }
+		public uint RealNumber { get; set; }
 
 		public void Print()
 		{

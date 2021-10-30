@@ -38,5 +38,18 @@ namespace RngBreak
 			}
 		}
 
+		public async Task<BetResponseUnsigned> MakeABetUnsigned(int sumOfMoney, long theNumberYouBetOn, string mode, string accId)
+		{
+			using (HttpClient http = new HttpClient())
+			{
+				var responseMessage = await http.GetAsync($"{urlBase}play{mode}?id={accId}&bet={sumOfMoney}&number={theNumberYouBetOn}");
+				var responseText = await responseMessage.Content.ReadAsStringAsync();
+				//Console.WriteLine(responseText);
+				var betResponse = JsonConvert.DeserializeObject<BetResponseUnsigned>(responseText);
+
+				return betResponse;
+			}
+		}
+
 	}	
 }

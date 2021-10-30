@@ -12,17 +12,25 @@ namespace RngBreak
 			CasinoCaller caller = new CasinoCaller();
 			var offset = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 			var acc = await caller.CreateAccount(accId);
-			var breaker = new LCGBreaker(caller);
+			var lcgBreaker = new LCGBreaker(caller);
+			var mtBreaker = new MtBreaker(caller);
+			var goodMtBreaker = new GoodMTBreaker(caller);
 			//await breaker.HackLcg(accId);
 			Console.WriteLine(DateTimeOffset.UtcNow);
-			await breaker.HackMT(accId, offset);
+			
+			
+			
+			//await lcgBreaker.HackLcg(accId);
 
-			var breakerMt = new GoodMTBreaker(caller);
-			await breakerMt.Hacc(accId);
+			//await mtBreaker.HackMT(accId, offset);
 
-			long c = -5;
+			
+			//var breakerMt = new GoodMTBreaker(caller);
+			//await breakerMt.Hacc(accId);
+
+			/*long c = -5;
 			int b = 2;
-			Console.WriteLine((ulong)c >> b);
+			Console.WriteLine((ulong)c >> b);*/
 
 
 			/*

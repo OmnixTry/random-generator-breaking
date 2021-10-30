@@ -12,6 +12,23 @@ namespace RngBreak
 
 		public Account Account { get; set; }
 
+		public int RealNumber { get; set; }
+
+		public void Print()
+		{
+			Console.WriteLine("---------");
+			Console.WriteLine($"Message: {Message}; RealNumber: {RealNumber};");
+			//Account.Print();
+			Console.WriteLine("---------");
+		}
+	}
+
+	class BetResponseUnsigned
+	{
+		public string Message { get; set; }
+
+		public Account Account { get; set; }
+
 		public uint RealNumber { get; set; }
 
 		public void Print()

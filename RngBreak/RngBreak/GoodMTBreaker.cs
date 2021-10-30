@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace RngBreak
 {
-	class GoodMTBreaker
+	class GoodMTBreaker : BaseBreaker
 	{
-		private readonly CasinoCaller caller;
-
-		public GoodMTBreaker(CasinoCaller caller)
-		{
-			this.caller = caller;
-		}
+		public GoodMTBreaker(CasinoCaller caller) : base(caller) { }
 		/*
 		public static long unBitshiftRightXor(long value, long shift)
 		{
@@ -108,12 +103,12 @@ namespace RngBreak
 
 		public async Task Hacc(string accId)
 		{
-			BetResponse result;
+			BetResponseUnsigned result;
 			MersenneTwister mersenneTwister = new MersenneTwister();
 			ulong[] state = new ulong[624];
 			for (int i = 0; i < 624; i++)
 			{
-				result = await caller.MakeABet(1, 1, GameModes.BetterMt, accId);
+				result = await caller.MakeABetUnsigned(1, 1, GameModes.BetterMt, accId);
 				long value = result.RealNumber;
 				//long value = (long)mersenneTwister.genrand_int32();
 				value = unBitshiftRightXor(value, 18);
@@ -133,7 +128,7 @@ namespace RngBreak
 
 			MersenneTwister.mt = state;
 			long num = (long)mersenneTwister.genrand_int32();
-			result = await caller.MakeABet(1, num, GameModes.BetterMt, accId);
+			result = await caller.MakeABetUnsigned(1, num, GameModes.BetterMt, accId);
 			result.Print();
 		}
 	}

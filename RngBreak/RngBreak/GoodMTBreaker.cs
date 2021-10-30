@@ -10,44 +10,30 @@ namespace RngBreak
 	{
 		public GoodMTBreaker(CasinoCaller caller) : base(caller) { }
 
-		public static long unBitshiftRightXor(long value, int shift)
+		public static long unBitshiftRightXor(long receivedValue, int shift)
 		{
-			// we part of the value we are up to (with a width of shift bits)
 			long i = 0;
-			// we accumulate the result here
 			long result = 0;
-			// iterate until we've done the full 32 bits
 			while (i * shift < 32)
 			{
-				// create a mask for this part
 				long partMask = (int)((uint)(-1 << (32 - shift)) >> (int)(shift * i));
-				// obtain the part
-				long part = value & partMask;
-				// unapply the xor from the next part of the integer
-				value ^= (long)((ulong)part >> shift);
-				// add the part to the result
+				long part = receivedValue & partMask;
+				receivedValue ^= (long)((ulong)part >> shift);
 				result |= part;
 				i++;
 			}
 			return result;
 		}
 
-		public static long unBitshiftLeftXor(long value, int shift, long mask)
+		public static long unBitshiftLeftXor(long receivedValue, int shift, long mask)
 		{
-			// we part of the value we are up to (with a width of shift bits)
 			long i = 0;
-			// we accumulate the result here
 			long result = 0;
-			// iterate until we've done the full 32 bits
 			while (i * shift < 32)
 			{
-				// create a mask for this part
 				long partMask = ((int)(unchecked((uint)-1) >> (32 - shift))) << (int)(shift * i);
-				// obtain the part
-				long part = value & partMask;
-				// unapply the xor from the next part of the integer
-				value ^= (part << shift) & mask;
-				// add the part to the result
+				long part = receivedValue & partMask;
+				receivedValue ^= (part << shift) & mask;
 				result |= part;
 				i++;
 			}
@@ -83,6 +69,11 @@ namespace RngBreak
 			long num = (long)mersenneTwister.genrand_int32();
 			result = await caller.MakeABetUnsigned(1, num, GameModes.BetterMt, accId);
 			result.Print();
+		}
+
+		private int UnginedRightShift()
+		{
+
 		}
 	}
 }

@@ -12,6 +12,7 @@ namespace RngBreak
 
 		public async Task HackMT(string ackountId, long offset)
 		{
+			/*
 			var result = await caller.MakeABetUnsigned(1, 1, GameModes.MerseneTwister, ackountId);
 
 			MersenneTwister twister = new MersenneTwister();
@@ -28,18 +29,18 @@ namespace RngBreak
 
 			result = await caller.MakeABetUnsigned(1, (long)twister.genrand_int32(), GameModes.MerseneTwister, ackountId);
 			Console.WriteLine(result.Message);
-			/*
+			*/
+			
 			List<MersenneTwister> twisters = new List<MersenneTwister>();
 			Console.WriteLine(offset);
 			for (int i = -50; i < 50; i++)
 			{
 				var twister = new MersenneTwister();
-				Console.WriteLine((uint)(offset + i));
 				twister.init_genrand((uint)(offset + i));
 				twisters.Add(twister);
 			}
 
-			var result = await caller.MakeABet(1, 1, GameModes.MerseneTwister, ackountId);
+			var result = await caller.MakeABetUnsigned(1, 1, GameModes.MerseneTwister, ackountId);
 			Console.WriteLine("RealNUmber: " + result.RealNumber);
 			MersenneTwister correct = twisters[0];
 			foreach (var item in twisters)
@@ -52,8 +53,8 @@ namespace RngBreak
 					break;
 				}
 			}
-			result = await caller.MakeABet(1, (long)correct.genrand_int32(), GameModes.MerseneTwister, ackountId);
-			*/
+			result = await caller.MakeABetUnsigned(1, (long)correct.genrand_int32(), GameModes.MerseneTwister, ackountId);
+			Console.WriteLine(result.Message);
 
 			/*
 			List<Random> twisters = new List<Random>();

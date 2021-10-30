@@ -22,9 +22,9 @@ namespace RngBreak
 
 			//await lcgBreaker.HackLcg(accId);
 
-			//await mtBreaker.HackMT(accId, offset);
+			await mtBreaker.HackMT(accId, offset);
 
-			await goodMtBreaker.Hacc(accId);
+			//await goodMtBreaker.Hacc(accId);
 
 
 			//var breakerMt = new GoodMTBreaker(caller);

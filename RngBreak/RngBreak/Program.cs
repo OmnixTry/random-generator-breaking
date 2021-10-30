@@ -15,22 +15,13 @@ namespace RngBreak
 			var lcgBreaker = new LCGBreaker(caller);
 			var mtBreaker = new MtBreaker(caller);
 			var goodMtBreaker = new GoodMTBreaker(caller);
-			//await breaker.HackLcg(accId);
 			Console.WriteLine(DateTimeOffset.UtcNow);
-
-
 
 			//await lcgBreaker.HackLcg(accId);
 
-			await mtBreaker.HackMT(accId, offset);
+			//await mtBreaker.HackMT(accId, offset);
 
 			//await goodMtBreaker.Hacc(accId);
-
-
-			//var breakerMt = new GoodMTBreaker(caller);
-			//await breakerMt.Hacc(accId);
-
-			
 		}
 	}
 }
@@ -52,13 +43,6 @@ namespace RngBreak
 // c = X2 % M - aX1
 
 /* a = (X2 - X3) / (X1- X2)
- * 
- * 
- * 
- * 
- * 
- * 
- * 
  */
 
 // X2 = (aX1 + c) + i * M

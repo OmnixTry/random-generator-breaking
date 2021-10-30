@@ -18,7 +18,6 @@ namespace RngBreak
 		{
 			Console.WriteLine("---------");
 			Console.WriteLine($"Message: {Message}; RealNumber: {RealNumber};");
-			//Account.Print();
 			Console.WriteLine("---------");
 		}
 	}
@@ -35,7 +34,6 @@ namespace RngBreak
 		{
 			Console.WriteLine("---------");
 			Console.WriteLine($"Message: {Message}; RealNumber: {RealNumber};");
-			//Account.Print();
 			Console.WriteLine("---------");
 		}
 	}

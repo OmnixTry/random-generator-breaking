@@ -18,6 +18,15 @@ namespace RngBreak
 			Console.WriteLine(DateTimeOffset.UtcNow);
 			await breaker.HackMT(accId, offset);
 
+			var breakerMt = new GoodMTBreaker(caller);
+			await breakerMt.Hacc(accId);
+
+			long c = -5;
+			int b = 2;
+			Console.WriteLine((ulong)c >> b);
+
+
+			/*
 			Console.WriteLine("\n\n\n\n================");
 			var twister = new MersenneTwister();
 			twister.init_genrand(1635594486);
@@ -26,7 +35,7 @@ namespace RngBreak
 			Console.WriteLine("Next: " + twister.genrand_int32());
 			Console.WriteLine("Next: " + twister.genrand_int32());
 			Console.WriteLine("Next: " + twister.genrand_int32());
-
+			*/
 
 
 			//var response = await caller.MakeABet(1, 1, GameModes.LinearCongruential, accId);

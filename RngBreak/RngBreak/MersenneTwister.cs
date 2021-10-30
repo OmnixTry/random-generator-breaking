@@ -16,8 +16,8 @@ namespace RngBreak
 		private const ulong LOWER_MASK = 0X7FFFFFFFUL;      // least significant r bits
 		private const uint DEFAULT_SEED = 4357;
 
-		private static ulong[] mt = new ulong[N + 1];   // the array for the state vector
-		private static ulong mti = N + 1;           // mti==N+1 means mt[N] is not initialized
+		public static ulong[] mt = new ulong[N + 1];   // the array for the state vector
+		public static ulong mti = N + 1;           // mti==N+1 means mt[N] is not initialized
 
 		public MersenneTwister()
 		{

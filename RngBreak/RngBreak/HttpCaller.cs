@@ -31,7 +31,7 @@ namespace RngBreak
 			{
 				var responseMessage = await http.GetAsync($"{urlBase}play{mode}?id={accId}&bet={sumOfMoney}&number={theNumberYouBetOn}");
 				var responseText = await responseMessage.Content.ReadAsStringAsync();
-				Console.WriteLine(responseText);
+				//Console.WriteLine(responseText);
 				var betResponse = JsonConvert.DeserializeObject<BetResponse>(responseText);
 
 				return betResponse;

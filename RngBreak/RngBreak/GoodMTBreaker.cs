@@ -9,53 +9,6 @@ namespace RngBreak
 	class GoodMTBreaker : BaseBreaker
 	{
 		public GoodMTBreaker(CasinoCaller caller) : base(caller) { }
-		/*
-		public static long unBitshiftRightXor(long value, long shift)
-		{
-			// we part of the value we are up to (with a width of shift bits)
-			long i = 0;
-			// we accumulate the result here
-			long result = 0;
-			// iterate until we've done the full 32 bits
-			while (i * shift < 32)
-			{
-				// create a mask for this part
-				long partMask = (long)(((ulong)(-1 << (int)(32 - shift))) >> (int)(shift * i));
-				// obtain the part
-				long part = value & partMask;
-				// unapply the xor from the next part of the integer
-				value ^= ((long)((ulong)part) >> (int)shift);
-				// add the part to the result
-				result |= part;
-				i++;
-			}
-			return result;
-		}
-		*/
-		/*
-		public static long unBitshiftLeftXor(long value, long shift, long mask)
-		{
-			// we part of the value we are up to (with a width of shift bits)
-			long i = 0;
-			// we accumulate the result here
-			long result = 0;
-			// iterate until we've done the full 32 bits
-			while (i * shift < 32)
-			{
-				// create a mask for this part
-				int igg = -1;
-				long partMask = ((long)((ulong)igg >> (int)(32 - shift))) << (int)(shift * i);
-				// obtain the part
-				long part = value & partMask;
-				// unapply the xor from the next part of the integer
-				value ^= (part << (int)shift) & mask;
-				// add the part to the result
-				result |= part;
-				i++;
-			}
-			return result;
-		}
-		*/
 
 		public static long unBitshiftRightXor(long value, int shift)
 		{

@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MersenneTwister" Version="1.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Retyped.mersenne-twister" Version="1.1.6733" />
   </ItemGroup>
 
 </Project>
